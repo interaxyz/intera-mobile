@@ -1,3 +1,16 @@
+// Types for tab configuration
+export interface TabOptions {
+  icon: (props: { focused: boolean; color: string; size: number }) => React.ReactNode
+  label: (t: (key: string) => string) => string
+  testID?: string
+}
+
+export interface TabScreenConfig {
+  name: string // Just a unique identifier for the screen
+  component: React.ComponentType<any>
+  options: TabOptions
+}
+
 // This will evolve. We should be mindful of breaking changes.
 // This structure should scale well as we add more features
 // and makes it clear what's core configuration vs optional features.
@@ -43,6 +56,15 @@ export interface PublicAppConfig {
         }
       }
     }
+  }
+
+  // Screen overrides
+  screens?: {
+    // Tab navigation configuration
+    tabs?: {
+      screens?: Array<'wallet' | 'activity' | 'discover' | 'earn' | TabScreenConfig>
+      initialScreen?: 'wallet' | 'activity' | 'discover' | 'earn' | number // index
+    } // Later we could allow passing in a component for advanced cases
   }
 
   // Optional features/capabilities
