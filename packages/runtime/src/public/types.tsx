@@ -11,6 +11,55 @@ export interface TabScreenConfig {
   options: TabOptions
 }
 
+export const defaultTabs = {
+  wallet: {
+    name: 'wallet',
+    component: (props) => {
+      const TabWallet = require('../tokens/TabWallet').default
+      return <TabWallet {...props} />
+    },
+    options: {
+      icon: (props) => {
+        const Icon = require('../icons/navigator/Wallet').default
+        return <Icon {...props} />
+      },
+      label: (t) => t('bottomTabsNavigator.wallet.tabName'),
+      testID: 'Tab/Wallet',
+    },
+  },
+  activity: {
+    // TODO: we'll rename this to TabHome
+    name: 'activity',
+    component: (props) => {
+      const TabHome = require('../home/TabHome').default
+      return <TabHome {...props} />
+    },
+    options: {
+      icon: (props) => {
+        const Icon = require('../icons/navigator/Home').default
+        return <Icon {...props} />
+      },
+      label: (t) => t('bottomTabsNavigator.home.tabName'),
+      testID: 'Tab/Home',
+    },
+  },
+  discover: {
+    name: 'discover',
+    component: (props) => {
+      const TabDiscover = require('../dappsExplorer/TabDiscover').default
+      return <TabDiscover {...props} />
+    },
+    options: {
+      icon: (props) => {
+        const Icon = require('../icons/navigator/Discover').default
+        return <Icon {...props} />
+      },
+      label: (t) => t('bottomTabsNavigator.discover.tabName'),
+      testID: 'Tab/Discover',
+    },
+  },
+} as const satisfies Record<string, TabScreenConfig>
+
 // This will evolve. We should be mindful of breaking changes.
 // This structure should scale well as we add more features
 // and makes it clear what's core configuration vs optional features.
@@ -21,7 +70,7 @@ export interface TabScreenConfig {
 // - Configuration options should be well documented and have clear purposes
 // - Breaking changes to configuration should be avoided when possible
 // - Configuration should be type-safe. In some cases we can consider runtime validation.
-export interface PublicAppConfig {
+export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = TabScreenConfig[]> {
   registryName: string
   displayName: string
   deepLinkUrlScheme: string
@@ -62,8 +111,8 @@ export interface PublicAppConfig {
   screens?: {
     // Tab navigation configuration
     tabs?: {
-      screens?: Array<'wallet' | 'activity' | 'discover' | 'earn' | TabScreenConfig>
-      initialScreen?: 'wallet' | 'activity' | 'discover' | 'earn' | number // index
+      screens?: tabScreenConfigs
+      initialScreen?: tabScreenConfigs[number]['name']
     } // Later we could allow passing in a component for advanced cases
   }
 
