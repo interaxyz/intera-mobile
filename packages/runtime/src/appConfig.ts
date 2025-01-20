@@ -1,5 +1,5 @@
 // IMPORTANT: This file should not import any other runtime files, to avoid circular dependencies
-import { PublicAppConfig } from './types'
+import { PublicAppConfig } from './public/types'
 
 let appConfig: PublicAppConfig | undefined
 

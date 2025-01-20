@@ -3,8 +3,8 @@
 import '@mobilestack-xyz/runtime/src/missingGlobals'
 import Config from 'react-native-config'
 import DeviceInfo from 'react-native-device-info'
+import { setAppConfig } from '../appConfig'
 import { ToggleableOnboardingFeatures } from '../onboarding/types'
-import { setAppConfig } from './appConfig'
 import { PublicAppConfig } from './types'
 
 // Note: could be nice to have a direct mapping, but for now it's explicit and simple

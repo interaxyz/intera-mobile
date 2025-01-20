@@ -1,5 +1,5 @@
 import * as AppConfigModule from './appConfig'
-import { PublicAppConfig } from './types'
+import { PublicAppConfig } from './public/types'
 
 describe('appConfig', () => {
   let getAppConfig: typeof AppConfigModule.getAppConfig
