@@ -56,6 +56,20 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
 
   // Screen overrides
   screens?: {
+    // Onboarding welcome screen
+    welcome?:
+      | {
+          // Customize some parts
+          logo?: React.ComponentType<any>
+          backgroundImage?: typeof require
+        }
+      | {
+          // Or provide the entire component
+          component?: React.ComponentType<{
+            onPressCreateAccount: () => void
+            onPressRestoreAccount: () => void
+          }>
+        }
     // Tab navigation configuration
     tabs?: (args: {
       defaultTabs: {

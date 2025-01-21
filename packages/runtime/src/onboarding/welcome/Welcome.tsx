@@ -14,6 +14,7 @@ import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import LanguageButton from 'src/onboarding/LanguageButton'
 import { firstOnboardingScreen } from 'src/onboarding/steps'
+import { getAppConfig } from 'src/public/appConfig'
 import { useDispatch, useSelector } from 'src/redux/hooks'
 import { patchUpdateStatsigUser } from 'src/statsig'
 import { Spacing } from 'src/styles/styles'
@@ -61,11 +62,28 @@ export default function Welcome() {
     navigateNext()
   }
 
+  const config = getAppConfig()
+  const welcomeConfig = config.screens?.welcome ?? {}
+
+  const CustomWelcomeComponent = 'component' in welcomeConfig ? welcomeConfig.component : undefined
+  if (CustomWelcomeComponent) {
+    return (
+      <CustomWelcomeComponent
+        onPressCreateAccount={onPressCreateAccount}
+        onPressRestoreAccount={onPressRestoreAccount}
+      />
+    )
+  }
+
+  const Logo = 'logo' in welcomeConfig && welcomeConfig.logo ? welcomeConfig.logo : WelcomeLogo
+  const backgroundImage =
+    'backgroundImage' in welcomeConfig ? welcomeConfig.backgroundImage : welcomeBackground
+
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={welcomeBackground} resizeMode="stretch" style={styles.image}>
+      <ImageBackground source={backgroundImage} resizeMode="stretch" style={styles.image}>
         <View style={styles.contentContainer}>
-          <WelcomeLogo />
+          <Logo />
         </View>
         <View style={{ ...styles.buttonView, marginBottom: Math.max(0, 40 - insets.bottom) }}>
           <Button
