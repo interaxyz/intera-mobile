@@ -14,6 +14,7 @@ import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import LanguageButton from 'src/onboarding/LanguageButton'
 import { firstOnboardingScreen } from 'src/onboarding/steps'
+import { getAppConfig } from 'src/public/appConfig'
 import { useDispatch, useSelector } from 'src/redux/hooks'
 import { patchUpdateStatsigUser } from 'src/statsig'
 import { Spacing } from 'src/styles/styles'
@@ -61,11 +62,16 @@ export default function Welcome() {
     navigateNext()
   }
 
+  const assetsConfig = getAppConfig().themes?.default?.assets
+
+  const Logo = assetsConfig?.welcomeLogo ?? WelcomeLogo
+  const backgroundImage = assetsConfig?.welcomeBackgroundImage ?? welcomeBackground
+
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={welcomeBackground} resizeMode="stretch" style={styles.image}>
+      <ImageBackground source={backgroundImage} resizeMode="stretch" style={styles.image}>
         <View style={styles.contentContainer}>
-          <WelcomeLogo />
+          <Logo />
         </View>
         <View style={{ ...styles.buttonView, marginBottom: Math.max(0, 40 - insets.bottom) }}>
           <Button
