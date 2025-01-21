@@ -1,64 +1,13 @@
 // Types for tab configuration
-export interface TabOptions {
-  icon: (props: { focused: boolean; color: string; size: number }) => React.ReactNode
-  label: (t: (key: string) => string) => string
-  testID?: string
-}
+export interface TabOptions {}
 
 export interface TabScreenConfig {
   name: string // Just a unique identifier for the screen
   component: React.ComponentType<any>
-  options: TabOptions
+  icon: (props: { focused: boolean; color: string; size: number }) => React.ReactNode
+  label: (t: (key: string) => string) => string
+  testID?: string
 }
-
-export const defaultTabs = {
-  wallet: {
-    name: 'wallet',
-    component: (props) => {
-      const TabWallet = require('../tokens/TabWallet').default
-      return <TabWallet {...props} />
-    },
-    options: {
-      icon: (props) => {
-        const Icon = require('../icons/navigator/Wallet').default
-        return <Icon {...props} />
-      },
-      label: (t) => t('bottomTabsNavigator.wallet.tabName'),
-      testID: 'Tab/Wallet',
-    },
-  },
-  activity: {
-    // TODO: we'll rename this to TabHome
-    name: 'activity',
-    component: (props) => {
-      const TabHome = require('../home/TabHome').default
-      return <TabHome {...props} />
-    },
-    options: {
-      icon: (props) => {
-        const Icon = require('../icons/navigator/Home').default
-        return <Icon {...props} />
-      },
-      label: (t) => t('bottomTabsNavigator.home.tabName'),
-      testID: 'Tab/Home',
-    },
-  },
-  discover: {
-    name: 'discover',
-    component: (props) => {
-      const TabDiscover = require('../dappsExplorer/TabDiscover').default
-      return <TabDiscover {...props} />
-    },
-    options: {
-      icon: (props) => {
-        const Icon = require('../icons/navigator/Discover').default
-        return <Icon {...props} />
-      },
-      label: (t) => t('bottomTabsNavigator.discover.tabName'),
-      testID: 'Tab/Discover',
-    },
-  },
-} as const satisfies Record<string, TabScreenConfig>
 
 // This will evolve. We should be mindful of breaking changes.
 // This structure should scale well as we add more features
@@ -110,7 +59,13 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
   // Screen overrides
   screens?: {
     // Tab navigation configuration
-    tabs?: {
+    tabs?: (args: {
+      defaultTabs: {
+        wallet: TabScreenConfig & { name: 'wallet' }
+        activity: TabScreenConfig & { name: 'activity' }
+        discover: TabScreenConfig & { name: 'discover' }
+      }
+    }) => {
       screens?: tabScreenConfigs
       initialScreen?: tabScreenConfigs[number]['name']
     } // Later we could allow passing in a component for advanced cases
