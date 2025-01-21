@@ -3,36 +3,75 @@ import { NativeStackHeaderProps, NativeStackScreenProps } from '@react-navigatio
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
+import TabDiscover from 'src/dappsExplorer/TabDiscover'
+import TabHome from 'src/home/TabHome'
+import Discover from 'src/icons/navigator/Discover'
+import Home from 'src/icons/navigator/Home'
+import Wallet from 'src/icons/navigator/Wallet'
 import { tabHeader } from 'src/navigator/Headers'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
 import { getAppConfig } from 'src/public/appConfig'
-import { defaultTabs } from 'src/public/types'
+import { TabScreenConfig } from 'src/public/types'
 import Colors from 'src/styles/colors'
 import { typeScale } from 'src/styles/fonts'
 import { Spacing } from 'src/styles/styles'
 import variables from 'src/styles/variables'
+import TabWallet from 'src/tokens/TabWallet'
 
 const Tab = createBottomTabNavigator()
 
 type Props = NativeStackScreenProps<StackParamList, Screens.TabNavigator>
 
-// type TabScreenConfigWithExtraOptions = TabScreenConfig & {
-//   options: TabOptions & {
-//     freezeOnBlur?: boolean
-//     lazy?: boolean
-//   }
-// }
+type TabScreenConfigInternal = TabScreenConfig & {
+  screenName: Screens
+  options?: {
+    freezeOnBlur?: boolean
+    lazy?: boolean
+  }
+}
+
+export const DEFAULT_TABS = {
+  wallet: {
+    name: 'wallet',
+    screenName: Screens.TabWallet,
+    component: TabWallet,
+    icon: Wallet,
+    label: (t) => t('bottomTabsNavigator.wallet.tabName'),
+    testID: 'Tab/Wallet',
+  },
+  activity: {
+    // TODO: we'll rename this to TabHome
+    name: 'activity',
+    screenName: Screens.TabHome,
+    component: TabHome,
+    icon: Home,
+    label: (t) => t('bottomTabsNavigator.home.tabName'),
+    testID: 'Tab/Home',
+    options: {
+      freezeOnBlur: true,
+      lazy: true,
+    },
+  },
+  discover: {
+    name: 'discover',
+    screenName: Screens.TabDiscover,
+    component: TabDiscover,
+    icon: Discover,
+    label: (t) => t('bottomTabsNavigator.discover.tabName'),
+    testID: 'Tab/Discover',
+  },
+} as const satisfies Record<string, TabScreenConfigInternal>
+
+const DEFAULT_SCREENS = [DEFAULT_TABS.wallet, DEFAULT_TABS.activity, DEFAULT_TABS.discover]
 
 export default function TabNavigator({ route }: Props) {
   const { t } = useTranslation()
   const config = getAppConfig()
-  const screens = config.screens?.tabs?.screens ?? [
-    defaultTabs.wallet,
-    defaultTabs.activity,
-    defaultTabs.discover,
-  ]
-  const initialScreen = config.screens?.tabs?.initialScreen ?? defaultTabs.activity.name
+  const tabsConfig = config.screens?.tabs?.({ defaultTabs: DEFAULT_TABS })
+
+  const screens = tabsConfig?.screens ?? DEFAULT_SCREENS
+  const initialScreen = tabsConfig?.initialScreen ?? DEFAULT_TABS.activity.name
 
   // Find the initial screen config to be sure it's actually in the list
   const initialScreenConfig = screens.find((screen) => screen.name === initialScreen)
@@ -62,12 +101,12 @@ export default function TabNavigator({ route }: Props) {
           <Tab.Screen
             key={screenConfig.name}
             name={screenConfig.name}
-            component={screenConfig.component}
+            component={screenConfig.component as React.ComponentType<any>}
             options={{
-              ...screenConfig.options,
-              tabBarLabel: screenConfig.options.label(t),
-              tabBarIcon: screenConfig.options.icon,
-              tabBarButtonTestID: screenConfig.options.testID,
+              ...('options' in screenConfig && screenConfig.options),
+              tabBarLabel: screenConfig.label(t),
+              tabBarIcon: screenConfig.icon,
+              tabBarButtonTestID: screenConfig.testID,
             }}
           />
         )
