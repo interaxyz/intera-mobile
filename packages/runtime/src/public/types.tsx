@@ -1,6 +1,4 @@
-// Types for tab configuration
-export interface TabOptions {}
-
+// Type for tab configuration
 export interface TabScreenConfig {
   name: string // Just a unique identifier for the screen
   component: React.ComponentType<any>
