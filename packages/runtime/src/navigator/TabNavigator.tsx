@@ -77,9 +77,10 @@ export default function TabNavigator({ route }: Props) {
   const initialScreenConfig = screens.find((screen) => screen.name === initialScreen)
 
   const initialRouteName =
-    initialScreenConfig && 'screenName' in initialScreenConfig
+    route.params?.initialScreen ??
+    (initialScreenConfig && 'screenName' in initialScreenConfig
       ? initialScreenConfig.screenName
-      : initialScreenConfig?.name
+      : initialScreenConfig?.name)
 
   return (
     <Tab.Navigator
