@@ -3,14 +3,14 @@ import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 import { Text } from 'react-native'
 import { Provider } from 'react-redux'
+import { getAppConfig } from 'src/appConfig'
 import { Screens } from 'src/navigator/Screens'
 import TabNavigator from 'src/navigator/TabNavigator'
-import { getAppConfig } from 'src/public/appConfig'
 import { PublicAppConfig } from 'src/public/types'
 import MockedNavigator from 'test/MockedNavigator'
 import { createMockStore } from 'test/utils'
 
-jest.mock('src/public/appConfig')
+jest.mock('src/appConfig')
 
 const mockGetAppConfig = jest.mocked(getAppConfig)
 
@@ -97,9 +97,9 @@ describe('TabNavigator', () => {
       mockGetAppConfig.mockReturnValue({
         ...defaultConfig,
         screens: {
-          tabs: {
-            screens: ['activity', 'wallet'], // Only showing 2 tabs in custom order
-          },
+          tabs: ({ defaultTabs }) => ({
+            screens: [defaultTabs.activity, defaultTabs.wallet], // Only showing 2 tabs in custom order
+          }),
         },
       })
 
@@ -117,41 +117,14 @@ describe('TabNavigator', () => {
       expect(queryByText('bottomTabsNavigator.discover.tabName')).toBeFalsy()
     })
 
-    it('uses custom initial screen when configured as a string', () => {
+    it('uses custom initial screen when configured', () => {
       mockGetAppConfig.mockReturnValue({
         ...defaultConfig,
         screens: {
-          tabs: {
-            screens: ['wallet', 'activity', 'discover'],
+          tabs: ({ defaultTabs }) => ({
+            screens: [defaultTabs.wallet, defaultTabs.activity, defaultTabs.discover],
             initialScreen: 'discover',
-          },
-        },
-      })
-
-      const store = createMockStore({})
-      const { getByTestId } = render(
-        <Provider store={store}>
-          <MockedNavigator component={TabNavigator} />
-        </Provider>
-      )
-
-      // Press discover tab - should not trigger navigation since it's the initial screen
-      fireEvent.press(getByTestId('Tab/Discover'))
-      expect(CommonActions.navigate).not.toHaveBeenCalled()
-
-      // Press home tab - should trigger navigation since it's not the initial screen
-      fireEvent.press(getByTestId('Tab/Home'))
-      expect(CommonActions.navigate).toHaveBeenCalled()
-    })
-
-    it('uses custom initial screen when configured as a number', () => {
-      mockGetAppConfig.mockReturnValue({
-        ...defaultConfig,
-        screens: {
-          tabs: {
-            screens: ['wallet', 'activity', 'discover'],
-            initialScreen: 2,
-          },
+          }),
         },
       })
 
@@ -175,21 +148,19 @@ describe('TabNavigator', () => {
       mockGetAppConfig.mockReturnValue({
         ...defaultConfig,
         screens: {
-          tabs: {
+          tabs: ({ defaultTabs }) => ({
             screens: [
-              'wallet',
+              defaultTabs.wallet,
               {
                 name: 'custom-tab',
                 component: () => <Text>Custom screen content</Text>,
-                options: {
-                  icon: jest.fn(),
-                  label: (t: any) => 'Custom tab',
-                  testID: 'Tab/CustomTab',
-                },
+                icon: jest.fn(),
+                label: (t: any) => 'Custom tab',
+                testID: 'Tab/CustomTab',
               },
             ],
-            initialScreen: 1,
-          },
+            initialScreen: 'custom-tab',
+          }),
         },
       })
 
