@@ -31,7 +31,7 @@ type TabScreenConfigInternal = TabScreenConfig & {
   }
 }
 
-export const DEFAULT_TABS = {
+const DEFAULT_TABS = {
   wallet: {
     name: 'wallet',
     screenName: Screens.TabWallet,
@@ -41,8 +41,8 @@ export const DEFAULT_TABS = {
     testID: 'Tab/Wallet',
   },
   activity: {
-    // TODO: we'll rename this to TabHome
     name: 'activity',
+    // TODO: we'll rename this to TabActivity
     screenName: Screens.TabHome,
     component: TabHome,
     icon: Home,
