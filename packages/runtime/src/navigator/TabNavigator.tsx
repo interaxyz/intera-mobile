@@ -3,6 +3,7 @@ import { NativeStackHeaderProps, NativeStackScreenProps } from '@react-navigatio
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
+import { getAppConfig } from 'src/appConfig'
 import TabDiscover from 'src/dappsExplorer/TabDiscover'
 import TabHome from 'src/home/TabHome'
 import Discover from 'src/icons/navigator/Discover'
@@ -11,7 +12,6 @@ import Wallet from 'src/icons/navigator/Wallet'
 import { tabHeader } from 'src/navigator/Headers'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
-import { getAppConfig } from 'src/appConfig'
 import { TabScreenConfig } from 'src/public/types'
 import Colors from 'src/styles/colors'
 import { typeScale } from 'src/styles/fonts'
@@ -76,7 +76,10 @@ export default function TabNavigator({ route }: Props) {
   // Find the initial screen config to be sure it's actually in the list
   const initialScreenConfig = screens.find((screen) => screen.name === initialScreen)
 
-  const initialRouteName = initialScreenConfig?.name
+  const initialRouteName =
+    initialScreenConfig && 'screenName' in initialScreenConfig
+      ? initialScreenConfig.screenName
+      : initialScreenConfig?.name
 
   return (
     <Tab.Navigator
@@ -100,7 +103,7 @@ export default function TabNavigator({ route }: Props) {
         return (
           <Tab.Screen
             key={screenConfig.name}
-            name={screenConfig.name}
+            name={'screenName' in screenConfig ? screenConfig.screenName : screenConfig.name}
             component={screenConfig.component as React.ComponentType<any>}
             options={{
               ...('options' in screenConfig && screenConfig.options),
