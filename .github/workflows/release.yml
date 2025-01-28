@@ -3,6 +3,8 @@ name: Release
 on:
   workflow_run:
     # TODO: consider doing this only if the e2e tests succeeded
+    # However this isn't currently easily doable
+    # See https://stackoverflow.com/questions/67721399/run-a-workflow-when-multiple-other-workflows-have-finished-in-github-actions
     workflows: ['Test']
     types:
       - completed
@@ -45,3 +47,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ steps.google-secrets.outputs.NPM_TOKEN }}
+      - uses: ravsamhq/notify-slack-action@v2
+        if: ${{ !cancelled() && github.ref == 'refs/heads/main' }}
+        with:
+          status: ${{ job.status }}
+          notification_title: '{workflow} has {status_message}'
+          message_format: '{emoji} *{workflow}* {status_message}. <{run_url}|View Run>'
+          footer: 'Repo: <{repo_url}|{repo}>'
+          notify_when: 'failure'
+          # Tag @supporthero on failures, can change to any slack group id
+          mention_groups: 'S0277QUM4KB'
+          mention_groups_when: 'failure'
+        env:
+          SLACK_WEBHOOK_URL: ${{ steps.google-secrets.outputs.SLACK_WEBHOOK_URL }}
