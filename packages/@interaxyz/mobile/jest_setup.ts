@@ -1,14 +1,5 @@
 import '@testing-library/jest-native/extend-expect'
 import 'react-native-svg-mock'
-import { setAppConfig } from 'src/appConfig'
-import { PublicAppConfig } from 'src/public'
-
-const defaultAppConfig: PublicAppConfig = {
-  displayName: 'Test App',
-  deepLinkUrlScheme: 'testapp',
-  registryName: 'test',
-}
-setAppConfig(defaultAppConfig)
 
 beforeAll(() => {
   jest.useFakeTimers()
