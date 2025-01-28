@@ -16,7 +16,6 @@ function useTokens() {
   return tokens
 }
 
-
 export function useWallet() {
   const address = useSelector(walletAddressSelector)
   const tokens = useTokens()
