@@ -1,22 +1,17 @@
 name: Release
 
 on:
-  # workflow_run:
-  #   workflows: ['Test']
-  #   types:
-  #     - completed
-  #   branches:
-  #     - auto-publish-npm # TODO: change to main
-  # Run on pushes to main..
-  push:
-    branches:
-      - auto-publish-npm # TODO: change to main
+  workflow_run:
+    # TODO: consider doing this only if the e2e tests succeeded
+    workflows: ['Test']
+    types:
+      - completed
 
 jobs:
   publish:
     name: ${{ github.ref == 'refs/heads/main' && 'Publish' || 'Publish (dry-run)' }}
     # Only run if the test workflow succeeded
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
