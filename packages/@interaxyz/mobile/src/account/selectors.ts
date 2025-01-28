@@ -58,5 +58,3 @@ export const recoveryPhraseInOnboardingStatusSelector = (state: RootState) =>
   state.account.recoveryPhraseInOnboardingStatus
 
 export const cloudBackupCompletedSelector = (state: RootState) => state.account.cloudBackupCompleted
-
-export const fullAccountSelector = (state: RootState) => state.account
