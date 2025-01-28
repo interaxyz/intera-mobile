@@ -3,11 +3,19 @@
   "version": "0.0.1",
   "author": "Valora Inc",
   "license": "Apache-2.0",
-  "private": true,
   "main": "./src/public/index.ts",
-  "engines": {
-    "node": "20.17.0"
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "src",
+    "plugin/build",
+    "app.plugin.js"
+  ],
   "scripts": {
     "lint": "eslint --ext=.tsx,.ts src/",
     "format": "prettier --loglevel error --write .",

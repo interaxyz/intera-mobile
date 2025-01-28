@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  # workflow_run:
+  #   workflows: ['Test']
+  #   types:
+  #     - completed
+  #   branches:
+  #     - auto-publish-npm # TODO: change to main
+  # Run on pushes to main..
+  push:
+    branches:
+      - auto-publish-npm # TODO: change to main
+
+jobs:
+  publish:
+    name: Publish
+    # Only run if the test workflow succeeded
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full git history is needed for release notes
+          fetch-depth: 0
+      - uses: ./.github/actions/yarn-install
+      - name: Publish to NPM
+        env:
+          # Needed for publishing to npm
+          #NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Needed for creating GitHub releases
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn release
