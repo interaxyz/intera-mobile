@@ -121,7 +121,7 @@
         "channel": "alpha"
       }
     ],
-    "preset": "conventionalcommits",
+    "preset": "conventionalcommit",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
