@@ -8,4 +8,3 @@
 export { createApp } from './createApp'
 export { useWallet } from './hooks/useWallet'
 export { type PublicAppConfig } from './types'
-
