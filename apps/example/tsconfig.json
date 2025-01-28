@@ -1,6 +1,10 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": ["expo/tsconfig.base", "../../node_modules/@interaxyz/mobile/tsconfig.json"],
   "compilerOptions": {
-    "strict": true
-  }
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "module": "ESNext"
+  },
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }
