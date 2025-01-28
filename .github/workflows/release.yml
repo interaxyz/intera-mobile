@@ -54,7 +54,7 @@ jobs:
             # Dry run to ensure it still works in case of deps changes
             # Trick: we unset GITHUB_ACTIONS so it doesn't abort early with
             # "This run was triggered by a pull request and therefore a new version won't be published."
-            yarn release --dry-run --no-ci --branches "$GITHUB_HEAD_REF"
+            yarn release --dry-run --no-ci --branches "$GITHUB_REF"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
