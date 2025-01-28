@@ -68,8 +68,8 @@ const colors = {
 const themeColors = {
   ...colors,
   ...(getAppConfig().themes?.default?.colors ?? {}),
-}
+} as const
 
-export type ColorValue = (typeof colors)[keyof typeof colors]
+export type ColorValue = (typeof themeColors)[keyof typeof themeColors]
 
 export default themeColors
