@@ -1,3 +1,5 @@
+import { getAppConfig } from 'src/appConfig'
+
 // Designer Created Figma Colors
 // from https://www.figma.com/design/erFfzHvSTm5g1sjK6jWyEH/Working-Design-System?node-id=2100-4881&node-type=frame&t=vKGGXrs3Torz7kFE-0
 enum Colors {
@@ -63,4 +65,9 @@ enum Colors {
   contentOnboardingComplete = '#FFFFFF', // Text and image color for onboarding completion screen
 }
 
-export default Colors
+const themeColors = {
+  ...Colors,
+  ...(getAppConfig().themes?.default?.colors ?? {}),
+}
+
+export default themeColors
