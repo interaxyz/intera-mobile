@@ -121,7 +121,7 @@
     "branches": [
       "stable",
       {
-        "name": "auto-publish-npm",
+        "name": "main",
         "prerelease": "alpha",
         "channel": "alpha"
       }
