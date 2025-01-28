@@ -19,7 +19,7 @@ on:
 jobs:
   publish:
     name: ${{ github.ref == 'refs/heads/main' && 'Publish' || 'Publish (dry-run)' }}
-    # Only run if the test workflow succeeded or it's a PR (in that case we don't want to delay the dry run)
+    # Only run if the test workflow succeeded or it's a PR (where we don't want to delay the dry run)
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     permissions:
@@ -49,7 +49,9 @@ jobs:
             yarn release
           else
             # Dry run to ensure it still works in case of deps changes
-            yarn release --dry-run
+            # Trick: we unset GITHUB_ACTIONS so it doesn't abort early with
+            # "This run was triggered by a pull request and therefore a new version won't be published."
+            unset GITHUB_ACTIONS && yarn release --dry-run
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
