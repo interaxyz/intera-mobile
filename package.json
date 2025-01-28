@@ -112,6 +112,11 @@
     "react-native-video": "^6.6.4",
     "react-native-webview": "^13.12.5"
   },
+  "multi-release": {
+    "deps": {
+      "bump": "inherit"
+    }
+  },
   "release": {
     "branches": [
       "stable",
@@ -121,7 +126,8 @@
         "channel": "alpha"
       }
     ],
-    "preset": "conventionalcommit",
+    "preset": "conventionalcommits",
+    "//plugins": "Skipping github comments and labels as it is not currently working correctly, see https://github.com/anolilab/semantic-release/issues/7",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",

@@ -14,7 +14,7 @@ on:
 
 jobs:
   publish:
-    name: Publish
+    name: ${{ github.ref == 'refs/heads/main' && 'Publish' || 'Publish (dry-run)' }}
     # Only run if the test workflow succeeded
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
@@ -40,7 +40,13 @@ jobs:
             SLACK_WEBHOOK_URL:celo-mobile-mainnet/SLACK_ONCALL_WEBHOOK_URL
       - uses: ./.github/actions/yarn-install
       - name: Publish to NPM
-        run: yarn release
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            yarn release
+          else
+            # Dry run to ensure it still works in case of deps changes
+            yarn release --dry-run
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ steps.google-secrets.outputs.NPM_TOKEN }}
