@@ -1,11 +1,17 @@
 import { useMemo } from 'react'
-import { useSelector } from 'src/redux/hooks'
-import { sortedTokensWithBalanceOrShowZeroBalanceSelector } from 'src/tokens/selectors'
-import { getSupportedNetworkIdsForSend } from 'src/tokens/utils'
-import { type NetworkId } from 'src/transactions/types'
-import { walletAddressSelector } from 'src/web3/selectors'
+import type { UseSelector } from '../../redux/hooks'
+import type { SortedTokensWithBalanceOrShowZeroBalanceSelector } from '../../tokens/selectors'
+import type { GetSupportedNetworkIdsForSend } from '../../tokens/utils'
+import type { NetworkId } from '../../transactions/types'
+import type { WalletAddressSelector } from '../../web3/selectors'
 
 function useTokens() {
+  const useSelector = require('../../redux/hooks').useSelector as UseSelector
+  const getSupportedNetworkIdsForSend = require('../../tokens/utils')
+    .getSupportedNetworkIdsForSend as GetSupportedNetworkIdsForSend
+  const sortedTokensWithBalanceOrShowZeroBalanceSelector = require('../../tokens/selectors')
+    .sortedTokensWithBalanceOrShowZeroBalanceSelector as SortedTokensWithBalanceOrShowZeroBalanceSelector
+
   const supportedNetworkIds = getSupportedNetworkIdsForSend().join(',')
   const memoizedNetworkIds = useMemo(
     () => supportedNetworkIds.split(',') as NetworkId[],
@@ -20,6 +26,9 @@ function useTokens() {
 }
 
 export function useWallet() {
+  const useSelector = require('../../redux/hooks').useSelector as UseSelector
+  const walletAddressSelector = require('../../web3/selectors')
+    .walletAddressSelector as WalletAddressSelector
   const address = useSelector(walletAddressSelector)
   const tokens = useTokens()
 
