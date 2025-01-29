@@ -5,7 +5,6 @@ import { SpendMerchant } from 'src/fiatExchanges/Spend'
 import { LoggerLevel } from 'src/utils/LoggerLevels'
 // eslint-disable-next-line import/no-relative-packages
 import { TORUS_SAPPHIRE_NETWORK } from '@toruslabs/constants'
-import { existsSync } from 'fs'
 import { LaunchArguments } from 'react-native-launch-arguments'
 import { HomeActionName } from 'src/home/types'
 import { ToggleableOnboardingFeatures } from 'src/onboarding/types'
@@ -18,7 +17,12 @@ export interface ExpectedLaunchArgs {
 }
 
 // extract secrets from secrets.json
-const secretsFile = existsSync('../secrets.json') ? require('../secrets.json') : {}
+let secretsFile = {}
+try {
+  secretsFile = require('../secrets.json')
+} catch {
+  // TODO: remove secrets file and set secrets another way
+}
 const keyOrUndefined = (file: any, secretsKey: any, attribute: any) => {
   if (secretsKey in file) {
     if (attribute in file[secretsKey]) {
