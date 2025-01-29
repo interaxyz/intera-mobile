@@ -1,8 +1,6 @@
 {
-  "extends": [
-    "../../node_modules/expo/tsconfig.base.json",
-    "../../node_modules/@interaxyz/mobile/tsconfig.json"
-  ],
+  // Temporary hack until we figure out a way for this to be { "extends": "expo/tsconfig.base" }
+  "extends": ["expo/tsconfig.base", "@interaxyz/mobile"],
   "compilerOptions": {
     "jsx": "react-native"
   },

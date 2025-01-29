@@ -4,7 +4,7 @@
  * For this reason we cannot use top level imports using absolute internal paths like `src/redux/hooks`
  * as it can cause those resolved paths to be included in the runtime before the globals file.
  * The same issue happens if we try to use absolute imports like '@interaxyz/mobile/src/redux/hooks'.
- * 
+ *
  * Until we resolve this issue, the approach to include any code from src folder should be as following:
  *   - top level imports of external modules are allowed (e.g. 'react')
  *   - internal modules should be included with an inline require
