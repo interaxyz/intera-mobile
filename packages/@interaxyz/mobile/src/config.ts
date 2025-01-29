@@ -9,6 +9,7 @@ import { LaunchArguments } from 'react-native-launch-arguments'
 import { HomeActionName } from 'src/home/types'
 import { ToggleableOnboardingFeatures } from 'src/onboarding/types'
 import { stringToBoolean } from 'src/utils/parsing'
+import * as secretsFile from '../secrets.json'
 import { ONE_HOUR_IN_MILLIS } from './utils/time'
 
 export interface ExpectedLaunchArgs {
@@ -17,12 +18,6 @@ export interface ExpectedLaunchArgs {
 }
 
 // extract secrets from secrets.json
-let secretsFile = {}
-try {
-  secretsFile = require('../secrets.json')
-} catch {
-  // TODO: remove secrets file and set secrets another way
-}
 const keyOrUndefined = (file: any, secretsKey: any, attribute: any) => {
   if (secretsKey in file) {
     if (attribute in file[secretsKey]) {
