@@ -5,11 +5,11 @@ import { SpendMerchant } from 'src/fiatExchanges/Spend'
 import { LoggerLevel } from 'src/utils/LoggerLevels'
 // eslint-disable-next-line import/no-relative-packages
 import { TORUS_SAPPHIRE_NETWORK } from '@toruslabs/constants'
+import { existsSync } from 'fs'
 import { LaunchArguments } from 'react-native-launch-arguments'
 import { HomeActionName } from 'src/home/types'
 import { ToggleableOnboardingFeatures } from 'src/onboarding/types'
 import { stringToBoolean } from 'src/utils/parsing'
-import * as secretsFile from '../secrets.json'
 import { ONE_HOUR_IN_MILLIS } from './utils/time'
 
 export interface ExpectedLaunchArgs {
@@ -18,6 +18,7 @@ export interface ExpectedLaunchArgs {
 }
 
 // extract secrets from secrets.json
+const secretsFile = existsSync('../secrets.json') ? require('../secrets.json') : {}
 const keyOrUndefined = (file: any, secretsKey: any, attribute: any) => {
   if (secretsKey in file) {
     if (attribute in file[secretsKey]) {
