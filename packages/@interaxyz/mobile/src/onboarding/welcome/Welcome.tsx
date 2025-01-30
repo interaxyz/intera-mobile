@@ -8,6 +8,7 @@ import AppAnalytics from 'src/analytics/AppAnalytics'
 import { OnboardingEvents } from 'src/analytics/Events'
 import { getAppConfig } from 'src/appConfig'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
+import EcosystemLogo from 'src/images/EcosystemLogo'
 import { welcomeBackground } from 'src/images/Images'
 import WelcomeLogo from 'src/images/WelcomeLogo'
 import { nuxNavigationOptions } from 'src/navigator/Headers'
@@ -90,6 +91,9 @@ export default function Welcome() {
             testID={'RestoreAccountButton'}
           />
         </View>
+        <View style={styles.msLogoContainer}>
+          <EcosystemLogo />
+        </View>
       </ImageBackground>
     </SafeAreaView>
   )
@@ -119,5 +123,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginTop: Spacing.XLarge48,
+  },
+  msLogoContainer: {
+    width: '100%',
+    marginTop: Spacing.Large32,
+    paddingBottom: Spacing.Regular16,
+    alignItems: 'center',
   },
 })
