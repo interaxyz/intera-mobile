@@ -21,8 +21,6 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
   registryName: string
   displayName: string
   deepLinkUrlScheme: string
-  statsigApiKey?: string
-  segmentApiKey?: string
 
   // Platform specific configuration
   ios?: {
@@ -130,6 +128,12 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
     cloudBackup?: boolean
     walletConnect?: {
       projectId: string
+    }
+    statsig?: {
+      apiKey: string
+    }
+    segment?: {
+      apiKey: string
     }
   }
 

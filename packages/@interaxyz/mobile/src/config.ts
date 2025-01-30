@@ -123,9 +123,9 @@ export const ALCHEMY_BASE_API_KEY = keyOrUndefined(
 )
 
 export const ZENDESK_API_KEY = keyOrUndefined(secretsFile, DEFAULT_TESTNET, 'ZENDESK_API_KEY')
-export const STATSIG_API_KEY = appConfig.statsigApiKey ?? DEFAULT_TESTNET
+export const STATSIG_API_KEY = appConfig.features?.statsig?.apiKey ?? DEFAULT_TESTNET
 export const STATSIG_ENABLED = !isE2EEnv && !!STATSIG_API_KEY
-export const SEGMENT_API_KEY = appConfig.segmentApiKey ?? DEFAULT_TESTNET
+export const SEGMENT_API_KEY = appConfig.features?.segment?.apiKey ?? DEFAULT_TESTNET
 export const SENTRY_CLIENT_URL = keyOrUndefined(secretsFile, DEFAULT_TESTNET, 'SENTRY_CLIENT_URL')
 export const BIDALI_URL = keyOrUndefined(secretsFile, DEFAULT_TESTNET, 'BIDALI_URL')
 export const WALLET_CONNECT_PROJECT_ID =
