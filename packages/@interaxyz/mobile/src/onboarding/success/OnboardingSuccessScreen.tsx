@@ -23,23 +23,24 @@ function OnboardingSuccessScreen() {
   const assetsConfig = getAppConfig().themes?.default?.assets
 
   const image =
-    assetsConfig && 'onboardingSuccessImage' in assetsConfig ?
-    assetsConfig.onboardingSuccessImage : undefined
+    assetsConfig && 'onboardingSuccessImage' in assetsConfig
+      ? assetsConfig.onboardingSuccessImage
+      : undefined
 
   return (
     <View style={styles.container}>
-      {
-        image ? <>
+      {image ? (
+        <>
           <Image source={image} />
           <Text style={styles.textWithImage}>{t('success.message')}</Text>
-        </> : (
-          <>
+        </>
+      ) : (
+        <>
           <Image source={background} style={styles.backgroundImage} />
           <Logo color={colors.contentOnboardingComplete} size={70} />
           <Text style={styles.textWithBackground}>{t('success.message')}</Text>
-          </>
-        )
-      }
+        </>
+      )}
     </View>
   )
 }
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 1,
     shadowColor: colors.softShadow,
-  }
+  },
 })
 
 export default OnboardingSuccessScreen

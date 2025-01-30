@@ -1,4 +1,4 @@
-import { ImageSourcePropType } from "react-native";
+import { ImageSourcePropType } from 'react-native'
 
 // Type for tab configuration
 export interface TabScreenConfig {
