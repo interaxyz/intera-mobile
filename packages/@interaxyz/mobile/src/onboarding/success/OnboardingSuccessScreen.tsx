@@ -22,10 +22,7 @@ function OnboardingSuccessScreen() {
 
   const assetsConfig = getAppConfig().themes?.default?.assets
 
-  const image =
-    assetsConfig && 'onboardingSuccessImage' in assetsConfig
-      ? assetsConfig.onboardingSuccessImage
-      : undefined
+  const image = assetsConfig?.onboardingSuccessImage
 
   return (
     <View style={styles.container}>
