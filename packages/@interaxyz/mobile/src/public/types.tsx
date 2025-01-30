@@ -22,6 +22,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
   displayName: string
   deepLinkUrlScheme: string
   statsigApiKey?: string
+  segmentApiKey?: string
 
   // Platform specific configuration
   ios?: {
