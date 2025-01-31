@@ -263,9 +263,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  errorContainer: {
-    flex: 1,
-  },
   listHeaderContainer: {
     ...getShadowStyle(Shadow.SoftLight),
     paddingHorizontal: Spacing.Regular16,
