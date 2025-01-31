@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import AppAnalytics from 'src/analytics/AppAnalytics'
 import { EarnEvents } from 'src/analytics/Events'
 import { Status } from 'src/earn/slice'
+import TabEarn from 'src/earn/TabEarn'
 import { EarnTabType } from 'src/earn/types'
-import TabHome from 'src/home/TabHome'
 import { getFeatureGate } from 'src/statsig'
 import { StatsigFeatureGates } from 'src/statsig/types'
 import { ONE_DAY_IN_MILLIS } from 'src/utils/time'
@@ -14,23 +14,6 @@ import { createMockStore } from 'test/utils'
 import { mockEarnPositions, mockTokenBalances } from 'test/values'
 
 jest.mock('src/statsig')
-
-jest.mock('src/web3/networkConfig', () => {
-  const originalModule = jest.requireActual('src/web3/networkConfig')
-  return {
-    ...originalModule,
-    __esModule: true,
-    default: {
-      ...originalModule.default,
-      defaultNetworkId: 'celo-alfajores',
-    },
-  }
-})
-
-jest.mock('src/fiatExchanges/utils', () => ({
-  ...(jest.requireActual('src/fiatExchanges/utils') as any),
-  fetchProviders: jest.fn(),
-}))
 
 function getStore(
   mockPoolBalance: string = '0',
@@ -76,7 +59,7 @@ describe('TabEarn', () => {
     const { getByText } = render(
       <Provider store={getStore()}>
         <MockedNavigator
-          component={TabHome}
+          component={TabEarn}
           params={{
             activeEarnTab: EarnTabType.MyPools,
           }}
@@ -90,7 +73,7 @@ describe('TabEarn', () => {
     const { getByText } = render(
       <Provider store={getStore('0', 'error', Date.now(), true)}>
         <MockedNavigator
-          component={TabHome}
+          component={TabEarn}
           params={{
             activeEarnTab: EarnTabType.AllPools,
           }}
@@ -107,7 +90,7 @@ describe('TabEarn', () => {
     const { getByText } = render(
       <Provider store={getStore('0', 'error', Date.now() - ONE_DAY_IN_MILLIS)}>
         <MockedNavigator
-          component={TabHome}
+          component={TabEarn}
           params={{
             activeEarnTab: EarnTabType.AllPools,
           }}
@@ -124,7 +107,7 @@ describe('TabEarn', () => {
     const { getByTestId, queryAllByTestId } = render(
       <Provider store={getStore()}>
         <MockedNavigator
-          component={TabHome}
+          component={TabEarn}
           params={{
             activeEarnTab: EarnTabType.AllPools,
           }}
@@ -149,7 +132,7 @@ describe('TabEarn', () => {
     const { getByTestId, queryByTestId, getByText } = render(
       <Provider store={getStore('10')}>
         <MockedNavigator
-          component={TabHome}
+          component={TabEarn}
           params={{
             activeEarnTab: EarnTabType.AllPools,
           }}
