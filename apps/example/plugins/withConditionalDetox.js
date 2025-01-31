@@ -6,9 +6,8 @@ const { withPlugins } = require('@expo/config-plugins')
  * @return {ExpoConfig}
  */
 module.exports = (config, properties = {}) => {
-  // Check if E2E testing is enabled via env variable
+  // Only apply Detox plugin if E2E testing is enabled
   if (process.env.EXPO_PUBLIC_MOBILE_STACK_E2E === 'true') {
-    // Only apply Detox plugin if E2E testing is enabled
     return withPlugins(config, ['@config-plugins/detox'])
   }
 
