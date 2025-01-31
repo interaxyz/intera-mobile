@@ -116,6 +116,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
         wallet: TabScreenConfig & { name: 'wallet' }
         activity: TabScreenConfig & { name: 'activity' }
         discover: TabScreenConfig & { name: 'discover' }
+        earn: TabScreenConfig & { name: 'earn' }
       }
     }) => {
       screens?: tabScreenConfigs
