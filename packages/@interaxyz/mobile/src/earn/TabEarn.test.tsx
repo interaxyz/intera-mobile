@@ -11,10 +11,7 @@ import { StatsigFeatureGates } from 'src/statsig/types'
 import { ONE_DAY_IN_MILLIS } from 'src/utils/time'
 import MockedNavigator from 'test/MockedNavigator'
 import { createMockStore } from 'test/utils'
-import {
-  mockEarnPositions,
-  mockTokenBalances
-} from 'test/values'
+import { mockEarnPositions, mockTokenBalances } from 'test/values'
 
 jest.mock('src/statsig')
 
@@ -65,7 +62,6 @@ function getStore(
     },
   })
 }
-
 
 describe('TabEarn', () => {
   beforeEach(() => {

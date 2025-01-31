@@ -70,7 +70,7 @@ const DEFAULT_TABS = {
     icon: Home,
     label: (t) => t('bottomTabsNavigator.earn.tabName'),
     testID: 'Tab/Earn',
-  }
+  },
 } as const satisfies Record<string, TabScreenConfigInternal>
 
 const DEFAULT_SCREENS = [DEFAULT_TABS.wallet, DEFAULT_TABS.activity, DEFAULT_TABS.discover]
