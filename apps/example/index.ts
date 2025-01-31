@@ -24,6 +24,21 @@ const App = createApp({
       cloudBackup: false,
     }),
   },
+  locales: {
+    'en-US': require('./locales/en-US/custom.json'),
+    'es-419': require('./locales/es-419/custom.json'),
+    'pt-BR': require('./locales/pt-BR/custom.json'),
+    de: require('./locales/de/custom.json'),
+    'ru-RU': require('./locales/ru-RU/custom.json'),
+    'fr-FR': require('./locales/fr-FR/custom.json'),
+    'it-IT': require('./locales/it-IT/custom.json'),
+    'uk-UA': require('./locales/uk-UA/custom.json'),
+    'pl-PL': require('./locales/pl-PL/custom.json'),
+    'th-TH': require('./locales/th-TH/custom.json'),
+    'tr-TR': require('./locales/tr-TR/custom.json'),
+    'vi-VN': require('./locales/vi-VN/custom.json'),
+    'zh-CN': require('./locales/zh-CN/custom.json'),
+  },
 })
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
