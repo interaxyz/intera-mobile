@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@anolilab/multi-semantic-release": "^1.1.9",
+    "@interaxyz/react-native-webview": "^13.13.4",
+    "@interaxyz/react-navigation-bottom-sheet": "^0.3.2",
     "@jambit/eslint-plugin-typed-redux-saga": "^0.4.0",
     "@types/shelljs": "^0.8.11",
     "@types/yargs": "^17.0.32",
