@@ -26,8 +26,8 @@ const defaultConfig: PublicAppConfig = {
   experimental: {
     earn: {
       showLearnMore: true,
-    }
-  }
+    },
+  },
 }
 
 function getStore(
@@ -69,7 +69,7 @@ describe('EarnHome', () => {
       .mockImplementation(
         (featureGateName) => featureGateName === StatsigFeatureGates.SHOW_POSITIONS
       )
-      mockGetAppConfig.mockReturnValue(defaultConfig)
+    mockGetAppConfig.mockReturnValue(defaultConfig)
   })
   it('shows the zero state UI under my pools if the user has no pools with balance', () => {
     const { getByText } = render(
