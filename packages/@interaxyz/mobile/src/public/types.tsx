@@ -1,4 +1,4 @@
-import type { ImageSourcePropType } from 'react-native'
+import type { ImageSourcePropType } from 'react-native';
 
 // Type for tab configuration
 export interface TabScreenConfig {
@@ -104,6 +104,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
         welcomeBackgroundImage?: typeof require
         onboardingSuccessImage?: ImageSourcePropType
         tabHeaderLogo?: React.ComponentType<any>
+        noEarnPoolsLogo?: React.ComponentType<any>
       }
     }
   }
