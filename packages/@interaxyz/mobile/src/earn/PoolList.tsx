@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native'
 import Animated from 'react-native-reanimated'
+import { getAppConfig } from 'src/appConfig'
 import PoolCard from 'src/earn/PoolCard'
 import { EarnPosition } from 'src/positions/types'
 import { typeScale } from 'src/styles/fonts'
@@ -30,6 +31,8 @@ export default function PoolList({
   displayPools: EarnPosition[]
   onPressLearnMore: () => void
 }) {
+  const appConfig = getAppConfig()
+  const showLearnMore = appConfig.experimental?.earn?.showLearnMore ?? false
   return (
     <AnimatedFlatList
       data={displayPools}
@@ -40,7 +43,7 @@ export default function PoolList({
       scrollIndicatorInsets={{ top: 0.01 }}
       scrollEventThrottle={16}
       ListHeaderComponent={<View style={{ height: listHeaderHeight }} />}
-      ListFooterComponent={
+      ListFooterComponent={ showLearnMore ? (
         <Text style={styles.learnMore}>
           <Trans i18nKey="earnFlow.home.learnMore">
             <Text
@@ -49,7 +52,7 @@ export default function PoolList({
               testID="LearnMoreCta"
             ></Text>
           </Trans>
-        </Text>
+        </Text> ) : null
       }
       style={styles.sectionList}
       contentContainerStyle={[

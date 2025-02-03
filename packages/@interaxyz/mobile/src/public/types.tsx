@@ -1,4 +1,4 @@
-import type { ImageSourcePropType } from 'react-native'
+import type { ImageSourcePropType } from 'react-native';
 
 // Type for tab configuration
 export interface TabScreenConfig {
@@ -178,6 +178,9 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
     onboarding?: {
       enableBiometry?: boolean
       protectWallet?: boolean
+    }
+    earn: {
+      showLearnMore?: boolean
     }
   }
 }
