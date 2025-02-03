@@ -133,6 +133,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
 
   /**
    * Optional copies overwrite. This field should contain the same language keys as @interxyz/mobile.
+   * TODO: Eventually, we want to make this fully type-safe (maybe with generics?)
    */
   locales?: Partial<{
     'en-US': Record<string, any>
