@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import AppAnalytics from 'src/analytics/AppAnalytics'
 import { SwapEvents } from 'src/analytics/Events'
+import { getAppConfig } from 'src/appConfig'
 import { NotificationVariant } from 'src/components/InLineNotification'
 import SectionHead from 'src/components/SectionHead'
 import Toast from 'src/components/Toast'
@@ -308,6 +309,7 @@ export default function TransactionFeedV2() {
   const dispatch = useDispatch()
 
   const showUKCompliantVariant = getFeatureGate(StatsigFeatureGates.SHOW_UK_COMPLIANT_VARIANT)
+  const showActionsCarousel = getAppConfig().experimental?.showActionsCarousel
 
   const allowedNetworkForTransfers = useAllowedNetworksForTransfers()
   const address = useSelector(walletAddressSelector)
@@ -515,7 +517,7 @@ export default function TransactionFeedV2() {
         initialNumToRender={20}
         ListHeaderComponent={
           <>
-            <ActionsCarousel />
+            {showActionsCarousel && <ActionsCarousel />}
             <NotificationBox showOnlyHomeScreenNotifications={true} />
           </>
         }
