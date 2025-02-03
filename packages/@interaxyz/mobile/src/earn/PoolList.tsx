@@ -43,16 +43,18 @@ export default function PoolList({
       scrollIndicatorInsets={{ top: 0.01 }}
       scrollEventThrottle={16}
       ListHeaderComponent={<View style={{ height: listHeaderHeight }} />}
-      ListFooterComponent={ showLearnMore ? (
-        <Text style={styles.learnMore}>
-          <Trans i18nKey="earnFlow.home.learnMore">
-            <Text
-              style={styles.learnMoreLink}
-              onPress={onPressLearnMore}
-              testID="LearnMoreCta"
-            ></Text>
-          </Trans>
-        </Text> ) : null
+      ListFooterComponent={
+        showLearnMore ? (
+          <Text style={styles.learnMore}>
+            <Trans i18nKey="earnFlow.home.learnMore">
+              <Text
+                style={styles.learnMoreLink}
+                onPress={onPressLearnMore}
+                testID="LearnMoreCta"
+              ></Text>
+            </Trans>
+          </Text>
+        ) : null
       }
       style={styles.sectionList}
       contentContainerStyle={[
