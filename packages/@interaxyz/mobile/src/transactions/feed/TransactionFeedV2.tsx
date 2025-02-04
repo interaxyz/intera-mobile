@@ -309,7 +309,7 @@ export default function TransactionFeedV2() {
   const dispatch = useDispatch()
 
   const showUKCompliantVariant = getFeatureGate(StatsigFeatureGates.SHOW_UK_COMPLIANT_VARIANT)
-  const showActionsCarousel = getAppConfig().experimental?.showActionsCarousel
+  const showActionsCarousel = getAppConfig().experimental?.showActionsCarousel ?? true
 
   const allowedNetworkForTransfers = useAllowedNetworksForTransfers()
   const address = useSelector(walletAddressSelector)
