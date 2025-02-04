@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native'
+import { getAppConfig } from 'src/appConfig'
 import { NotificationVariant } from 'src/components/InLineNotification'
 import SectionHead from 'src/components/SectionHead'
 import Toast from 'src/components/Toast'
