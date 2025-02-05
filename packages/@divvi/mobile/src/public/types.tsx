@@ -182,7 +182,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
       enableBiometry?: boolean
       protectWallet?: boolean
     }
-    activity: {
+    activity?: {
       showActionsCarousel?: boolean
     }
     earn?: {
@@ -191,6 +191,9 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
     }
     wallet?: {
       emptyState?: React.ComponentType<any>
+    }
+    transactions?: {
+      emptyState?: React.ReactElement
     }
   }
 }

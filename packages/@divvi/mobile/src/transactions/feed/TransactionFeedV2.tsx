@@ -244,7 +244,7 @@ export default function TransactionFeedV2() {
   const dispatch = useDispatch()
 
   const showUKCompliantVariant = getFeatureGate(StatsigFeatureGates.SHOW_UK_COMPLIANT_VARIANT)
-  const showActionsCarousel = getAppConfig().experimental?.activity.showActionsCarousel ?? true
+  const showActionsCarousel = getAppConfig().experimental?.activity?.showActionsCarousel ?? true
 
   const allowedNetworkForTransfers = useAllowedNetworksForTransfers()
   const address = useSelector(walletAddressSelector)
@@ -263,6 +263,10 @@ export default function TransactionFeedV2() {
     { address: address!, endCursor, localCurrencyCode },
     { skip: !address, refetchOnMountOrArgChange: true }
   )
+
+  const transactionsConfig = getAppConfig()?.experimental?.transactions
+  const noTxComponent =
+    transactionsConfig?.emptyState ?? (!showUKCompliantVariant ? <GetStarted /> : <NoActivity />)
 
   /**
    * This is the same hook as above and it only polls the first page of the feed. Thanks to how
@@ -446,7 +450,7 @@ export default function TransactionFeedV2() {
             <NotificationBox showOnlyHomeScreenNotifications={true} />
           </>
         }
-        ListEmptyComponent={!showUKCompliantVariant ? <GetStarted /> : <NoActivity />}
+        ListEmptyComponent={noTxComponent}
         ListFooterComponent={
           <>
             {/* prevent loading indicator due to polling from showing at the bottom of the screen */}
