@@ -1,8 +1,11 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
+import { View } from 'react-native'
 import { Provider } from 'react-redux'
+import { getAppConfig } from 'src/appConfig'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
+import { PublicAppConfig } from 'src/public/types'
 import { getFeatureGate, getMultichainFeatures } from 'src/statsig'
 import { StatsigFeatureGates } from 'src/statsig/types'
 import TabWallet from 'src/tokens/TabWallet'
@@ -22,6 +25,14 @@ import {
 } from 'test/values'
 
 jest.mock('src/statsig')
+jest.mock('src/appConfig')
+
+const mockGetAppConfig = jest.mocked(getAppConfig)
+const defaultConfig: PublicAppConfig = {
+  registryName: 'test',
+  displayName: 'test',
+  deepLinkUrlScheme: 'test',
+}
 
 const storeWithTokenBalances = {
   tokens: {
@@ -92,6 +103,10 @@ const storeWithNfts = {
   },
 }
 
+function EmptyState() {
+  return <View testID="NoActivityCustomComponent" />
+}
+
 describe('TabWallet', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -99,6 +114,7 @@ describe('TabWallet', () => {
     jest.mocked(getMultichainFeatures).mockReturnValue({
       showBalances: [NetworkId['celo-alfajores']],
     })
+    mockGetAppConfig.mockReturnValue(defaultConfig)
   })
 
   it('renders tokens and collectibles tabs when positions is disabled', () => {
@@ -148,6 +164,26 @@ describe('TabWallet', () => {
 
     expect(getAllByTestId('TokenBalanceItem')).toHaveLength(2)
     expect(queryAllByTestId('PositionItem')).toHaveLength(0)
+  })
+  it('renders custom empty state when overriden', async () => {
+    mockGetAppConfig.mockReturnValue({
+      ...defaultConfig,
+      experimental: {
+        activity: {},
+        earn: {},
+        wallet: {
+          emptyState: EmptyState,
+        },
+      },
+    })
+
+    const { getByTestId } = render(
+      <Provider store={createMockStore(storeWithPositions)}>
+        <MockedNavigator component={TabWallet} />
+      </Provider>
+    )
+
+    expect(getByTestId('NoActivityCustomComponent')).toBeTruthy()
   })
 
   it('hides dapp positions if feature gate is enabled but there are no positions', () => {
