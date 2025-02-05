@@ -189,7 +189,6 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
       showLearnMore?: boolean
       showSafetyScoreOnPoolCard?: boolean
     }
-    // Component overrides on existing screens
     transactions?: {
       emptyState?: React.ReactElement
     }
