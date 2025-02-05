@@ -1,4 +1,4 @@
-import type { ImageSourcePropType } from 'react-native'
+import type { ImageSourcePropType } from 'react-native';
 
 // Type for tab configuration
 export interface TabScreenConfig {
@@ -180,10 +180,10 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
       enableBiometry?: boolean
       protectWallet?: boolean
     }
-    earn: {
+    earn?: {
       showLearnMore?: boolean
     }
-    wallet: {
+    wallet?: {
       emptyState?: React.ComponentType<any>
     }
   }
