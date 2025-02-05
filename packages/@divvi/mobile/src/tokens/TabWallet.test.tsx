@@ -104,7 +104,7 @@ const storeWithNfts = {
 }
 
 function EmptyState() {
-  return <View testID="NoActivityCustomComponent" />
+  return <View testID="NoTokensCustomComponent" />
 }
 
 describe('TabWallet', () => {
@@ -165,6 +165,7 @@ describe('TabWallet', () => {
     expect(getAllByTestId('TokenBalanceItem')).toHaveLength(2)
     expect(queryAllByTestId('PositionItem')).toHaveLength(0)
   })
+
   it('renders custom empty state when overriden', async () => {
     mockGetAppConfig.mockReturnValue({
       ...defaultConfig,
@@ -178,12 +179,12 @@ describe('TabWallet', () => {
     })
 
     const { getByTestId } = render(
-      <Provider store={createMockStore(storeWithPositions)}>
+      <Provider store={createMockStore()}>
         <MockedNavigator component={TabWallet} />
       </Provider>
     )
 
-    expect(getByTestId('NoActivityCustomComponent')).toBeTruthy()
+    expect(getByTestId('NoTokensCustomComponent')).toBeTruthy()
   })
 
   it('hides dapp positions if feature gate is enabled but there are no positions', () => {
