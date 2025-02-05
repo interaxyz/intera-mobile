@@ -253,8 +253,8 @@ describe('TransactionFeedV2', () => {
       experimental: {
         activity: {},
         earn: {},
-        components: {
-          txHistoryEmpty: <View testID="NoActivityCustomComponent" />,
+        transactions: {
+          emptyState: <View testID="NoActivityCustomComponent" />,
         },
       },
     })

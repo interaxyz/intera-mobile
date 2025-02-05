@@ -264,9 +264,9 @@ export default function TransactionFeedV2() {
     { skip: !address, refetchOnMountOrArgChange: true }
   )
 
-  const componentsConfig = getAppConfig()?.experimental?.components
+  const transactionsConfig = getAppConfig()?.experimental?.transactions
   const noTxComponent =
-    componentsConfig?.txHistoryEmpty ?? (!showUKCompliantVariant ? <GetStarted /> : <NoActivity />)
+    transactionsConfig?.emptyState ?? (!showUKCompliantVariant ? <GetStarted /> : <NoActivity />)
 
   /**
    * This is the same hook as above and it only polls the first page of the feed. Thanks to how

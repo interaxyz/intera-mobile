@@ -36,9 +36,9 @@ function TransactionFeed() {
 
   const showUKCompliantVariant = getFeatureGate(StatsigFeatureGates.SHOW_UK_COMPLIANT_VARIANT)
 
-  const componentsConfig = getAppConfig()?.experimental?.components
+  const transactionsConfig = getAppConfig()?.experimental?.transactions
   const noTxComponent =
-    componentsConfig?.txHistoryEmpty ??
+    transactionsConfig?.emptyState ??
     (!showUKCompliantVariant ? <GetStarted /> : <NoActivity loading={loading} error={error} />)
 
   const confirmedFeedTransactions = useMemo(() => {
