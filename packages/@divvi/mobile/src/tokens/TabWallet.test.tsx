@@ -179,7 +179,7 @@ describe('TabWallet', () => {
     })
 
     const { getByTestId } = render(
-      <Provider store={createMockStore()}>
+      <Provider store={createMockStore({tokens: {}})}>
         <MockedNavigator component={TabWallet} />
       </Provider>
     )
