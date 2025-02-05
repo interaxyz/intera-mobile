@@ -25,6 +25,7 @@ import {
 import { type RecursivePartial } from 'test/utils'
 import { mockCeloTokenId, mockCusdAddress, mockCusdTokenId, mockQRCodeRecipient } from 'test/values'
 import { getAppConfig } from 'src/appConfig'
+import { PublicAppConfig } from 'src/public/types'
 
 jest.mock('src/statsig')
 jest.mock('react-native-simple-toast')
@@ -37,7 +38,6 @@ const defaultConfig: PublicAppConfig = {
   registryName: 'test',
   displayName: 'test',
   deepLinkUrlScheme: 'test',
-  experimental: {},
 }
 
 const STAND_BY_TRANSACTION_SUBTITLE_KEY = 'confirmingTransaction'
@@ -251,13 +251,15 @@ describe('TransactionFeedV2', () => {
     mockGetAppConfig.mockReturnValue({
       ...defaultConfig,
       experimental: {
+        activity: {},
+        earn: {},
         components: {
           txHistoryEmpty: <View testID="NoActivityCustomComponent" />,
         },
       },
     })
 
-    const { getByTestId, getByText } = renderScreen({})
+    const { getByTestId } = renderScreen({})
 
     await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1))
     expect(getByTestId('NoActivityCustomComponent')).toBeTruthy()

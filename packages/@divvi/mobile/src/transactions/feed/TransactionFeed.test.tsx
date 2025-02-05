@@ -20,6 +20,7 @@ import networkConfig from 'src/web3/networkConfig'
 import { createMockStore, RecursivePartial } from 'test/utils'
 import { mockApprovalTransaction, mockCusdAddress, mockCusdTokenId } from 'test/values'
 import { getAppConfig } from 'src/appConfig'
+import { PublicAppConfig } from 'src/public/types'
 
 jest.mock('src/statsig')
 jest.mock('src/appConfig')
@@ -29,7 +30,6 @@ const defaultConfig: PublicAppConfig = {
   registryName: 'test',
   displayName: 'test',
   deepLinkUrlScheme: 'test',
-  experimental: {},
 }
 
 const mockTransaction = (
@@ -459,13 +459,15 @@ describe('TransactionFeed', () => {
     mockGetAppConfig.mockReturnValue({
       ...defaultConfig,
       experimental: {
+        activity: {},
+        earn: {},
         components: {
           txHistoryEmpty: <View testID="NoActivityCustomComponent" />,
         },
       },
     })
 
-    const { getByTestId, getByText } = renderScreen({})
+    const { getByTestId } = renderScreen({})
 
     await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1))
     expect(getByTestId('NoActivityCustomComponent')).toBeTruthy()

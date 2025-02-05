@@ -47,7 +47,6 @@ import {
 import { groupFeedItemsInSections } from 'src/transactions/utils'
 import Logger from 'src/utils/Logger'
 import { walletAddressSelector } from 'src/web3/selectors'
-import { getAppConfig } from 'src/appConfig'
 
 type PaginatedData = {
   [FIRST_PAGE_CURSOR]: TokenTransaction[]

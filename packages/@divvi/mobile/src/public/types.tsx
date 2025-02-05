@@ -125,11 +125,6 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
     } // Later we could allow passing in a component for advanced cases
   }
 
-  // Component overrides on existing screens
-  components?: {
-    txHistoryEmpty?: React.ComponentType<any>
-  }
-
   // Optional features/capabilities
   features?: {
     sentry?: {
@@ -191,6 +186,10 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
     earn: {
       showLearnMore?: boolean
       showSafetyScoreOnPoolCard?: boolean
+    }
+    // Component overrides on existing screens
+    components?: {
+      txHistoryEmpty?: React.ReactElement
     }
   }
 }
