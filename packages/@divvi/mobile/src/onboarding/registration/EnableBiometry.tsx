@@ -56,14 +56,30 @@ const biometryIconMap: { [key in Keychain.BIOMETRY_TYPE]: JSX.Element } = {
 }
 
 const biometryImageMap: { [key in Keychain.BIOMETRY_TYPE]: JSX.Element } = {
-  [Keychain.BIOMETRY_TYPE.FACE_ID]: <Image testID="Image/FaceID" source={assetsConfig?.biometryImages?.faceId ?? biometryFaceId} />,
-  [Keychain.BIOMETRY_TYPE.TOUCH_ID]: <Image testID="Image/TouchID" source={assetsConfig?.biometryImages?.touchId ?? biometryTouchId} />,
-  [Keychain.BIOMETRY_TYPE.FINGERPRINT]: (
-    <Image testID="Image/Fingerprint" source={assetsConfig?.biometryImages?.fingerprint ?? biometryFingerprint} />
+  [Keychain.BIOMETRY_TYPE.FACE_ID]: (
+    <Image testID="Image/FaceID" source={assetsConfig?.biometryImages?.faceId ?? biometryFaceId} />
   ),
-  [Keychain.BIOMETRY_TYPE.FACE]: <Image testID="Image/Face" source={assetsConfig?.biometryImages?.face ?? biometryFace} />,
-  [Keychain.BIOMETRY_TYPE.IRIS]: <Image testID="Image/Iris" source={assetsConfig?.biometryImages?.iris ?? biometryIris} />,
-  [Keychain.BIOMETRY_TYPE.OPTIC_ID]: <Image testID="Image/Iris" source={assetsConfig?.biometryImages?.iris ?? biometryIris} />,
+  [Keychain.BIOMETRY_TYPE.TOUCH_ID]: (
+    <Image
+      testID="Image/TouchID"
+      source={assetsConfig?.biometryImages?.touchId ?? biometryTouchId}
+    />
+  ),
+  [Keychain.BIOMETRY_TYPE.FINGERPRINT]: (
+    <Image
+      testID="Image/Fingerprint"
+      source={assetsConfig?.biometryImages?.fingerprint ?? biometryFingerprint}
+    />
+  ),
+  [Keychain.BIOMETRY_TYPE.FACE]: (
+    <Image testID="Image/Face" source={assetsConfig?.biometryImages?.face ?? biometryFace} />
+  ),
+  [Keychain.BIOMETRY_TYPE.IRIS]: (
+    <Image testID="Image/Iris" source={assetsConfig?.biometryImages?.iris ?? biometryIris} />
+  ),
+  [Keychain.BIOMETRY_TYPE.OPTIC_ID]: (
+    <Image testID="Image/Iris" source={assetsConfig?.biometryImages?.iris ?? biometryIris} />
+  ),
 }
 
 export default function EnableBiometry({ navigation }: Props) {
