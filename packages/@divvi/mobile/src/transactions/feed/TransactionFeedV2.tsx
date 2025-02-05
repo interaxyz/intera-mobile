@@ -46,6 +46,7 @@ import {
 import { groupFeedItemsInSections } from 'src/transactions/utils'
 import Logger from 'src/utils/Logger'
 import { walletAddressSelector } from 'src/web3/selectors'
+import { getAppConfig } from 'src/appConfig'
 
 type PaginatedData = {
   [FIRST_PAGE_CURSOR]: TokenTransaction[]
@@ -262,6 +263,10 @@ export default function TransactionFeedV2() {
     { skip: !address, refetchOnMountOrArgChange: true }
   )
 
+  const componentsConfig = getAppConfig()?.experimental?.components
+  const noTxComponent =
+    componentsConfig?.txHistoryEmpty ?? (!showUKCompliantVariant ? <GetStarted /> : <NoActivity />)
+
   /**
    * This is the same hook as above and it only polls the first page of the feed. Thanks to how
    * RTK-Query stores the fetched data, we know that using "useTransactionFeedV2Query" with the
@@ -444,7 +449,7 @@ export default function TransactionFeedV2() {
             <NotificationBox showOnlyHomeScreenNotifications={true} />
           </>
         }
-        ListEmptyComponent={!showUKCompliantVariant ? <GetStarted /> : <NoActivity />}
+        ListEmptyComponent={noTxComponent}
         ListFooterComponent={
           <>
             {/* prevent loading indicator due to polling from showing at the bottom of the screen */}
