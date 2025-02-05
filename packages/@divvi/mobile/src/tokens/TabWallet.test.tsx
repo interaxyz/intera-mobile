@@ -74,6 +74,46 @@ const storeWithTokenBalances = {
   },
 }
 
+const storeWithTokenBalancesZeroBalance = {
+  tokens: {
+    tokenBalances: {
+      [mockCeurTokenId]: {
+        tokenId: mockCeurTokenId,
+        priceUsd: '1.16',
+        address: mockCeurAddress,
+        symbol: 'cEUR',
+        imageUrl:
+          'https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_cEUR.png',
+        name: 'Celo Euro',
+        decimals: 18,
+        balance: '0',
+        isFeeCurrency: true,
+        canTransferWithComment: true,
+        priceFetchedAt: Date.now(),
+        networkId: NetworkId['celo-alfajores'],
+      },
+      [mockCusdTokenId]: {
+        tokenId: mockCusdTokenId,
+        priceUsd: '1.001',
+        address: mockCusdAddress,
+        symbol: 'cUSD',
+        imageUrl:
+          'https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_cUSD.png',
+        name: 'Celo Dollar',
+        decimals: 18,
+        balance: '0',
+        isFeeCurrency: true,
+        canTransferWithComment: true,
+        priceFetchedAt: Date.now(),
+        networkId: NetworkId['celo-alfajores'],
+      },
+    },
+  },
+  positions: {
+    positions: [],
+  },
+}
+
 const storeWithPositions = {
   ...storeWithTokenBalances,
   positions: {
@@ -179,7 +219,7 @@ describe('TabWallet', () => {
     })
 
     const { getByTestId } = render(
-      <Provider store={createMockStore({tokens: {}})}>
+      <Provider store={createMockStore(storeWithTokenBalancesZeroBalance)}>
         <MockedNavigator component={TabWallet} />
       </Provider>
     )
