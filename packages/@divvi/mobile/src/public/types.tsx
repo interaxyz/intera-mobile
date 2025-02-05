@@ -124,7 +124,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
       screens?: tabScreenConfigs
       initialScreen?: tabScreenConfigs[number]['name']
     } // Later we could allow passing in a component for advanced cases
-    custom?: (Navigator: NavigatorScreen) => React.JSX.Element
+    custom?: (Screen: NavigatorScreen) => React.JSX.Element
   }
 
   // Optional features/capabilities
