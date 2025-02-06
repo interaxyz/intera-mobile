@@ -196,6 +196,9 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
       showLearnMore?: boolean
       showSafetyScoreOnPoolCard?: boolean
     }
+    wallet?: {
+      showActionsCarousel?: boolean
+    }
     transactions?: {
       emptyState?: React.ReactElement
     }
