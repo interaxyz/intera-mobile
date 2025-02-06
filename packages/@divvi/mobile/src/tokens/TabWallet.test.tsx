@@ -294,7 +294,7 @@ describe('TabWallet', () => {
   })
 
   it('does not render actions carousel by default', () => {
-    jest.mocked(getDynamicConfigParams).mockReturnValue({ enabled: true })  // Needed for the quick action bar
+    jest.mocked(getDynamicConfigParams).mockReturnValue({ enabled: true }) // Needed for the quick action bar
     const store = createMockStore(storeWithPositions)
 
     const { queryByTestId } = render(
