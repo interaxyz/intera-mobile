@@ -155,11 +155,12 @@ function TabWallet({ navigation, route }: Props) {
     navigation.setParams({ activeAssetTab: selectedTab })
   }
 
-  const EmptyState = getAppConfig().experimental?.wallet?.emptyState
+  const configuredEmptyState = getAppConfig().experimental?.wallet?.emptyState
+  const EmptyState = () => configuredEmptyState
+  
   const supportedNetworkIds = getSupportedNetworkIdsForTokenBalances()
   const hasTokens =
     useSelector((state) => sortedTokensWithBalanceSelector(state, supportedNetworkIds)).length > 0
-  const showEmptyState = EmptyState && !hasTokens
 
   return (
     // Transparency issue on Android present when a fragment is used - Nested Animated.View prevents it
@@ -180,7 +181,7 @@ function TabWallet({ navigation, route }: Props) {
           displayPositions={displayPositions}
         />
       </Animated.View>
-      {showEmptyState ? (
+      {configuredEmptyState && !hasTokens ? (
         <EmptyState />
       ) : (
         <AssetList

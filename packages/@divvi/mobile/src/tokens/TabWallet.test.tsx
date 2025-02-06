@@ -143,10 +143,6 @@ const storeWithNfts = {
   },
 }
 
-function EmptyState() {
-  return <View testID="NoTokensCustomComponent" />
-}
-
 describe('TabWallet', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -213,7 +209,7 @@ describe('TabWallet', () => {
         activity: {},
         earn: {},
         wallet: {
-          emptyState: EmptyState,
+          emptyState: <View testID="NoTokensCustomComponent" />,
         },
       },
     })
