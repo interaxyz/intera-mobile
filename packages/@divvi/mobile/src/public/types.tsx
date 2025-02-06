@@ -198,6 +198,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
     }
     wallet?: {
       showActionsCarousel?: boolean
+      emptyState?: React.ReactElement
     }
     transactions?: {
       emptyState?: React.ReactElement
