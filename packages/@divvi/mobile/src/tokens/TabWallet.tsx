@@ -167,7 +167,7 @@ function TabWallet({ navigation, route }: Props) {
           onLayout={handleMeasureNonStickyHeaderHeight}
         >
           <AssetsTokenBalance showInfo={displayPositions} />
-          { showActionsCarousel && <ActionsCarousel /> }
+          {showActionsCarousel && <ActionsCarousel />}
         </View>
         <AssetTabBar
           activeTab={activeTab}
