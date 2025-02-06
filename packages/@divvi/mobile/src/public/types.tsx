@@ -190,7 +190,7 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
       protectWallet?: boolean
     }
     activity?: {
-      showActionsCarousel?: boolean
+      hideActionsCarousel?: boolean
     }
     earn?: {
       showLearnMore?: boolean
