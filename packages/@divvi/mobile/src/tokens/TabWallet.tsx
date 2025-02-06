@@ -157,7 +157,7 @@ function TabWallet({ navigation, route }: Props) {
 
   const configuredEmptyState = getAppConfig().experimental?.wallet?.emptyState
   const EmptyState = () => configuredEmptyState
-  
+
   const supportedNetworkIds = getSupportedNetworkIdsForTokenBalances()
   const hasTokens =
     useSelector((state) => sortedTokensWithBalanceSelector(state, supportedNetworkIds)).length > 0
