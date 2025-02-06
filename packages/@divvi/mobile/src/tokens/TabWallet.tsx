@@ -156,7 +156,6 @@ function TabWallet({ navigation, route }: Props) {
   }
 
   const configuredEmptyState = getAppConfig().experimental?.wallet?.emptyState
-  const EmptyState = () => configuredEmptyState
 
   const supportedNetworkIds = getSupportedNetworkIdsForTokenBalances()
   const hasTokens =
@@ -182,7 +181,7 @@ function TabWallet({ navigation, route }: Props) {
         />
       </Animated.View>
       {configuredEmptyState && !hasTokens ? (
-        <EmptyState />
+        configuredEmptyState
       ) : (
         <AssetList
           activeTab={activeTab}
