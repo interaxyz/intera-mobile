@@ -113,7 +113,7 @@ function SignInWithEmail({ route, navigation }: Props) {
   }
   const address = useSelector(walletAddressSelector)
 
-  const cloudBackupConfig = getAppConfig()?.assets?.cloudBackup
+  const cloudBackupConfig = getAppConfig().themes?.default?.assets?.cloudBackup
   const emailImage = cloudBackupConfig?.emailImage ? cloudBackupConfig.emailImage : email
 
   // We check whether or not there is anything to go back to

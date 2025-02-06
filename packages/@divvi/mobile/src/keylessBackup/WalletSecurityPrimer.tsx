@@ -19,7 +19,7 @@ type Props = NativeStackScreenProps<StackParamList, Screens.WalletSecurityPrimer
 
 function WalletSecurityPrimer({ route }: Props) {
   const { t } = useTranslation()
-  const cloudBackupConfig = getAppConfig()?.assets?.cloudBackup
+  const cloudBackupConfig = getAppConfig().themes?.default?.assets?.cloudBackup
   const educationImage = cloudBackupConfig?.educationImage
     ? cloudBackupConfig.educationImage
     : walletSafe
