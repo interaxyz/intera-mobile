@@ -55,7 +55,7 @@ function TabWallet({ navigation, route }: Props) {
     dappShortcutsEnabled &&
     positionsWithClaimableRewards.length > 0 &&
     activeTab !== AssetTabType.Collectibles
-  const showActionsCarousel = getAppConfig().experimental?.activity?.showActionsCarousel ?? false
+  const showActionsCarousel = getAppConfig().experimental?.wallet?.showActionsCarousel ?? false
 
   const [nonStickyHeaderHeight, setNonStickyHeaderHeight] = useState(0)
   const [listHeaderHeight, setListHeaderHeight] = useState(0)
