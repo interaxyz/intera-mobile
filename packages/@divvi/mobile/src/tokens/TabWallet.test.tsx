@@ -1,9 +1,11 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Provider } from 'react-redux'
+import { getAppConfig } from 'src/appConfig'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
-import { getFeatureGate, getMultichainFeatures } from 'src/statsig'
+import { PublicAppConfig } from 'src/public/types'
+import { getDynamicConfigParams, getFeatureGate, getMultichainFeatures } from 'src/statsig'
 import { StatsigFeatureGates } from 'src/statsig/types'
 import TabWallet from 'src/tokens/TabWallet'
 import { NetworkId } from 'src/transactions/types'
@@ -22,6 +24,17 @@ import {
 } from 'test/values'
 
 jest.mock('src/statsig')
+const mockGetAppConfig = jest.mocked(getAppConfig)
+const defaultConfig: PublicAppConfig = {
+  registryName: 'test',
+  displayName: 'test',
+  deepLinkUrlScheme: 'test',
+  experimental: {
+    wallet: {
+      showActionsCarousel: false,
+    },
+  },
+}
 
 const storeWithTokenBalances = {
   tokens: {
@@ -278,5 +291,39 @@ describe('TabWallet', () => {
 
     fireEvent.press(getByText('assets.claimRewards'))
     expect(navigate).toHaveBeenCalledWith(Screens.DappShortcutsRewards)
+  })
+
+  it('does not render actions carousel by default', () => {
+    jest.mocked(getDynamicConfigParams).mockReturnValue({ enabled: true })  // Needed for the quick action bar
+    const store = createMockStore(storeWithPositions)
+
+    const { queryByTestId } = render(
+      <Provider store={store}>
+        <MockedNavigator component={TabWallet} />
+      </Provider>
+    )
+
+    expect(queryByTestId('HomeActionsCarousel')).toBeFalsy()
+  })
+
+  it('renders actions carousel when enabled via app config', () => {
+    jest.mocked(getDynamicConfigParams).mockReturnValue({ enabled: true }) // Needed for the quick action bar
+    const store = createMockStore(storeWithPositions)
+    mockGetAppConfig.mockReturnValue({
+      ...defaultConfig,
+      experimental: {
+        wallet: {
+          showActionsCarousel: true,
+        },
+      },
+    })
+
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MockedNavigator component={TabWallet} />
+      </Provider>
+    )
+
+    expect(getByTestId('HomeActionsCarousel')).toBeTruthy()
   })
 })
