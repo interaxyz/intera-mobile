@@ -5,4 +5,4 @@ export function getFees(prepareTransactionsResult: PreparedTransactionsResult | 
   const getFeeCurrencyAndAmounts = require('../viem/prepareTransactions')
     .getFeeCurrencyAndAmounts as GetFeeCurrencyAndAmounts
   return getFeeCurrencyAndAmounts(prepareTransactionsResult)
-} 
+}
