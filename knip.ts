@@ -19,7 +19,7 @@ const config: KnipConfig = {
         'conventional-changelog-conventionalcommits', // used by semantic-release config preset
       ],
     },
-    'apps/example': {
+    example: {
       entry: [
         'index.tsx!',
         'metro.config.js!',
