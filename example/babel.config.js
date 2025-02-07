@@ -12,8 +12,8 @@ module.exports = function (api) {
             buffer: '@craftzdog/react-native-buffer',
             // Temporary hack so we can directly import from the @divvi/mobile package
             // without transpiling, we'll probably add a custom preset for this
-            '^src/(.+)$': '../../node_modules/@divvi/mobile/src/\\1',
-            '^locales$': '../../node_modules/@divvi/mobile/locales',
+            '^src/(.+)$': '../node_modules/@divvi/mobile/src/\\1',
+            '^locales$': '../node_modules/@divvi/mobile/locales',
           },
         },
       ],
