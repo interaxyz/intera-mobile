@@ -18,5 +18,5 @@ export {
   type PreparedTransactionsResult,
   type TransactionRequest,
 } from './prepareTransactions'
-export { sendTransactions as sendPreparedTransactions } from './sendTransactions'
+export { sendTransactions } from './sendTransactions'
 export { type NetworkId, type PublicAppConfig } from './types'
