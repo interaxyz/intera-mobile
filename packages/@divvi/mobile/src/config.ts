@@ -1,6 +1,6 @@
+import { CachesDirectoryPath } from '@divvi/react-native-fs'
 import { Network } from '@fiatconnect/fiatconnect-types'
 import Config from 'react-native-config'
-import { CachesDirectoryPath } from 'react-native-fs'
 import { SpendMerchant } from 'src/fiatExchanges/Spend'
 import { LoggerLevel } from 'src/utils/LoggerLevels'
 // eslint-disable-next-line import/no-relative-packages
@@ -162,6 +162,7 @@ export const SIMPLEX_FEES_URL =
 
 export const APP_STORE_ID = Config.APP_STORE_ID
 export const DYNAMIC_LINK_DOMAIN_URI_PREFIX = 'https://vlra.app'
+export const ENABLE_OTA_TRANSLATIONS = true
 export const CROWDIN_DISTRIBUTION_HASH = 'e-f9f6869461793b9d1a353b2v7c'
 export const OTA_TRANSLATIONS_FILEPATH = `file://${CachesDirectoryPath}/translations`
 
