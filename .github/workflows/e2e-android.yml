@@ -62,9 +62,9 @@ jobs:
       - uses: ./.github/actions/yarn-install
       - name: Prebuild
         run: yarn run e2e:prebuild
-        working-directory: apps/example
+        working-directory: example
       - name: Store compileSdkVersion in env
-        run: echo "ANDROID_COMPILE_SDK_VERSION=$(grep 'compileSdkVersion' apps/example/android/build.gradle | grep -o '[0-9]\+')" >> $GITHUB_ENV
+        run: echo "ANDROID_COMPILE_SDK_VERSION=$(grep 'compileSdkVersion' example/android/build.gradle | grep -o '[0-9]\+')" >> $GITHUB_ENV
       - name: Setup runner
         run: |
           set -x
@@ -100,10 +100,10 @@ jobs:
           --emulatorName Pixel_API_${{ inputs.android-api-level }}_AOSP_x86_64
       - name: Check E2E wallet balance
         run: NODE_OPTIONS='--unhandled-rejections=strict' yarn ts-node ./e2e/scripts/check-e2e-wallet-balance.ts
-        working-directory: apps/example
+        working-directory: example
       - name: Create Detox Build
         run: yarn run e2e:build:android-release
-        working-directory: apps/example
+        working-directory: example
       - name: Run Detox
         run: >
           yarn detox test
@@ -119,7 +119,7 @@ jobs:
           --headless
           --retries 3
           --device-boot-args="-snapshot ci_boot"
-        working-directory: apps/example
+        working-directory: example
         env:
           E2E_WALLET_CONNECT_PROJECT_ID: ${{ steps.google-secrets.outputs.E2E_WALLET_CONNECT_PROJECT_ID }}
           E2E_DEFAULT_RECIPIENT_MNEMONIC: ${{ steps.google-secrets.outputs.E2E_DEFAULT_RECIPIENT_MNEMONIC }}
@@ -142,10 +142,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-${{ inputs.android-api-level }}-e2e-artifact
-          path: apps/example/e2e/artifacts
+          path: example/e2e/artifacts
       - name: 'Upload Android E2E HTML Report'
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: android-${{ inputs.android-api-level }}-e2e-test-report
-          path: apps/example/e2e/test-results
+          path: example/e2e/test-results

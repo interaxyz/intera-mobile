@@ -47,13 +47,13 @@ jobs:
         run: echo "$(ruby -e 'puts Gem.bindir')" >> $GITHUB_PATH
       - name: Check E2E wallet balance
         run: NODE_OPTIONS='--unhandled-rejections=strict' yarn ts-node ./e2e/scripts/check-e2e-wallet-balance.ts
-        working-directory: apps/example
+        working-directory: example
       - name: Prebuild
         run: yarn run e2e:prebuild
-        working-directory: apps/example
+        working-directory: example
       - name: Create Detox Build
         run: yarn run e2e:build:ios-release
-        working-directory: apps/example
+        working-directory: example
       - name: Upload Detox Build to Emerge
         if: |
           env.SECRETS_AVAILABLE
@@ -76,7 +76,7 @@ jobs:
           --debug-synchronization 10000
           --maxWorkers 6
           --retries 3
-        working-directory: apps/example
+        working-directory: example
         timeout-minutes: 45
         env:
           E2E_WALLET_CONNECT_PROJECT_ID: ${{ steps.google-secrets.outputs.E2E_WALLET_CONNECT_PROJECT_ID }}
@@ -100,13 +100,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-${{ inputs.ios-version }}-e2e-artifact
-          path: apps/example/e2e/artifacts
+          path: example/e2e/artifacts
       - name: 'Upload iOS E2E HTML Report'
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ios-${{ inputs.ios-version }}-test-report
-          path: apps/example/e2e/test-results
+          path: example/e2e/test-results
       - name: 'Close simulators'
         if: always()
         run: xcrun simctl shutdown all
