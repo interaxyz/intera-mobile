@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { PreparedTransactionsPossible } from 'src/viem/prepareTransactions'
 import { mockAccount } from 'test/values'
-import { prepareTransactions } from '../prepareTransactions'
+import { PreparedTransactionsPossible, prepareTransactions } from '../prepareTransactions'
 import { usePrepareTransactions } from './usePrepareTransactions'
 
 jest.mock('../prepareTransactions')

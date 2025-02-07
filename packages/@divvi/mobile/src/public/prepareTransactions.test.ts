@@ -1,37 +1,21 @@
-import { getSerializablePreparedTransactions } from 'src/viem/preparedTransactionSerialization'
-import { mockAccount, mockCeloTokenBalance } from 'test/values'
+import { mockCeloTokenBalance } from 'test/values'
 import { feeCurrenciesSelector } from '../tokens/selectors'
-import {
-  getFeeCurrencyAndAmounts,
-  prepareTransactions as internalPrepareTransactions,
-  PreparedTransactionsPossible,
-} from '../viem/prepareTransactions'
-import { sendPreparedTransactions as sendPreparedTransactionsSaga } from '../viem/saga'
-import {
-  getFees,
-  prepareTransactions,
-  sendPreparedTransactions,
-  type TransactionRequest,
-} from './prepareTransactions'
+import { prepareTransactions as internalPrepareTransactions } from '../viem/prepareTransactions'
+import { prepareTransactions, type TransactionRequest } from './prepareTransactions'
 
 jest.mock('../tokens/selectors')
 jest.mock('../viem/prepareTransactions')
-jest.mock('../viem/saga')
-
-beforeEach(() => {
-  jest.clearAllMocks()
-
-  // Reset all mock implementations and return values
-  jest.mocked(feeCurrenciesSelector).mockReset()
-  jest.mocked(internalPrepareTransactions).mockReset()
-  jest.mocked(getFeeCurrencyAndAmounts).mockReset()
-  jest.mocked(sendPreparedTransactionsSaga).mockReset()
-})
 
 describe('prepareTransactions', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+    jest.mocked(feeCurrenciesSelector).mockReset()
+    jest.mocked(internalPrepareTransactions).mockReset()
+  })
+
   it('should correctly prepare transactions', async () => {
     const mockFeeCurrencies = [mockCeloTokenBalance]
-    const mockPrepareResult = { type: 'possible' } as PreparedTransactionsPossible
+    const mockPrepareResult = { type: 'possible' } as any
 
     jest.mocked(feeCurrenciesSelector).mockReturnValue(mockFeeCurrencies)
     jest.mocked(internalPrepareTransactions).mockResolvedValue(mockPrepareResult)
@@ -64,44 +48,5 @@ describe('prepareTransactions', () => {
       ],
       origin: 'framework',
     })
-  })
-})
-
-describe('getFees', () => {
-  it('should delegate to getFeeCurrencyAndAmounts', () => {
-    const mockPreparedResult = { type: 'possible' } as PreparedTransactionsPossible
-    const mockFees = {} as any
-
-    jest.mocked(getFeeCurrencyAndAmounts).mockReturnValue(mockFees)
-
-    const result = getFees(mockPreparedResult as any)
-
-    expect(result).toEqual(mockFees)
-    expect(getFeeCurrencyAndAmounts).toHaveBeenCalledWith(mockPreparedResult)
-  })
-})
-
-describe('sendPreparedTransactions', () => {
-  it('should correctly send prepared transactions', async () => {
-    const mockTxHashes = ['0x123', '0x456']
-    const mockPrepared = {
-      type: 'possible',
-      transactions: [
-        { to: mockAccount, value: BigInt(1000) },
-        { to: mockAccount, value: BigInt(1000) },
-      ],
-      feeCurrency: mockCeloTokenBalance,
-    } as PreparedTransactionsPossible
-
-    jest.mocked(sendPreparedTransactionsSaga).mockReturnValue(mockTxHashes as any)
-
-    const result = await sendPreparedTransactions(mockPrepared as any)
-
-    expect(result).toEqual(mockTxHashes)
-    expect(sendPreparedTransactionsSaga).toHaveBeenCalledWith(
-      getSerializablePreparedTransactions(mockPrepared.transactions),
-      'celo-alfajores',
-      expect.any(Array)
-    )
   })
 })

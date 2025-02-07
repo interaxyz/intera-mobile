@@ -6,16 +6,17 @@
  * - Prevent accidental exposure of internal implementation details
  */
 export { createApp } from './createApp'
+export { getFees } from './getFees'
 export { usePrepareTransactions } from './hooks/usePrepareTransactions'
 export { useSendTransactions } from './hooks/useSendTransactions'
 export { useWallet } from './hooks/useWallet'
 export {
-  getFees,
   prepareTransactions,
-  sendPreparedTransactions,
   type PreparedTransactionsNeedDecreaseSpendAmountForGas,
   type PreparedTransactionsNotEnoughBalanceForGas,
   type PreparedTransactionsPossible,
   type PreparedTransactionsResult,
+  type TransactionRequest,
 } from './prepareTransactions'
+export { sendTransactions as sendPreparedTransactions } from './sendTransactions'
 export { type NetworkId, type PublicAppConfig } from './types'

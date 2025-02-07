@@ -1,9 +1,9 @@
 import { useAsyncCallback } from 'react-async-hook'
-import { sendPreparedTransactions } from '../prepareTransactions'
+import { sendTransactions } from '../sendTransactions'
 import { toAsyncStatus } from './toAsyncStatus'
 
 export function useSendTransactions() {
-  const asyncCallback = useAsyncCallback(sendPreparedTransactions)
+  const asyncCallback = useAsyncCallback(sendTransactions)
 
   return {
     status: toAsyncStatus(asyncCallback.status),

@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { PreparedTransactionsPossible } from 'src/viem/prepareTransactions'
-import { sendPreparedTransactions } from '../prepareTransactions'
+import type { PreparedTransactionsPossible } from '../prepareTransactions'
+import { sendTransactions } from '../sendTransactions'
 import { useSendTransactions } from './useSendTransactions'
 
-jest.mock('../prepareTransactions')
-const mockSendPreparedTransactions = jest.mocked(sendPreparedTransactions)
+jest.mock('../sendTransactions')
+const mockSendPreparedTransactions = jest.mocked(sendTransactions)
 
 const mockPreparedTransactions = { type: 'possible' } as PreparedTransactionsPossible
 
