@@ -113,6 +113,10 @@ export interface PublicAppConfig<tabScreenConfigs extends TabScreenConfig[] = Ta
           touchId?: ImageSourcePropType
           iris?: ImageSourcePropType
         }
+        cloudBackup?: {
+          educationImage?: ImageSourcePropType
+          emailImage?: ImageSourcePropType
+        }
       }
     }
   }
