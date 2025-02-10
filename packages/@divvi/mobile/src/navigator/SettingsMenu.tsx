@@ -39,7 +39,7 @@ import Lock from 'src/icons/Lock'
 import Wallet from 'src/icons/navigator/Wallet'
 import Preferences from 'src/icons/Preferences'
 import Stack from 'src/icons/Stack'
-import EcosystemLogo from 'src/images/EcosystemLogo'
+import DivviLogo from 'src/images/DivviLogo'
 import { headerWithCloseButton } from 'src/navigator/Headers'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
@@ -269,7 +269,7 @@ export default function SettingsMenu({ route }: Props) {
         </TouchableWithoutFeedback>
         {getDevSettingsComp()}
         <View style={styles.logo}>
-          <EcosystemLogo />
+          <DivviLogo />
         </View>
       </ScrollView>
     </SafeAreaView>

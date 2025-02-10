@@ -10,7 +10,7 @@ import { OnboardingEvents } from 'src/analytics/Events'
 import { getAppConfig } from 'src/appConfig'
 import BottomSheet, { BottomSheetModalRefType } from 'src/components/BottomSheet'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
-import EcosystemLogo from 'src/images/EcosystemLogo'
+import DivviLogo from 'src/images/DivviLogo'
 import { welcomeBackground } from 'src/images/Images'
 import WelcomeLogo from 'src/images/WelcomeLogo'
 import { nuxNavigationOptions } from 'src/navigator/Headers'
@@ -131,7 +131,7 @@ export default function Welcome() {
           />
         </View>
         <View style={styles.divviLogoContainer}>
-          <EcosystemLogo />
+          <DivviLogo />
         </View>
       </ImageBackground>
       <BottomSheet
